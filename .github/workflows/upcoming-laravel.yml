@@ -1,0 +1,28 @@
+# Early warning for the next Laravel major: runs the suite against the
+# framework's master branch weekly so breakage is caught months before release.
+name: upcoming-laravel
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Laravel dev-master
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+      - run: >
+          composer require
+          "illuminate/database:dev-master"
+          "illuminate/support:dev-master"
+          "illuminate/pagination:dev-master"
+          --no-interaction --no-update
+      - run: composer config minimum-stability dev
+      - run: composer update --prefer-dist --no-interaction --no-progress --with-all-dependencies
+      - run: composer test
