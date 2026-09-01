@@ -1,22 +1,36 @@
 {
-    "name": "volosyuk/simple-eloquent",
-    "description": "Adaptation of eloquent for retrieving its attributes",
+    "name": "sineld/simple-eloquent",
+    "description": "Hydration-free Eloquent queries: retrieve results as plain objects with full relation support",
     "license": "MIT",
     "keywords": [
         "laravel",
-        "eloquent"
+        "eloquent",
+        "performance",
+        "hydration"
     ],
+    "homepage": "https://github.com/sineld/simple-eloquent",
     "authors": [
         {
             "name": "Andrey Volosyuk",
-            "email": "valasiuk.andrei@gmail.com"
+            "email": "valasiuk.andrei@gmail.com",
+            "role": "Original author"
+        },
+        {
+            "name": "Sinan Eldem",
+            "email": "sinan@sinaneldem.com.tr",
+            "role": "Maintainer"
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
-        "illuminate/database": "^8.0|^9.0|^10.0|^11.0|^12.0|^13.0",
-        "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0|^13.0",
-        "illuminate/pagination": "^8.0|^9.0|^10.0|^11.0|^12.0|^13.0"
+        "php": "^8.2",
+        "illuminate/database": "^12.0|^13.0|^14.0",
+        "illuminate/support": "^12.0|^13.0|^14.0",
+        "illuminate/pagination": "^12.0|^13.0|^14.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0",
+        "laravel/pint": "^1.13",
+        "phpstan/phpstan": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -25,22 +39,22 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/TestCase.php"
+            "tests/"
         ]
     },
-    "require-dev": {
-        "phpunit/phpunit": "^8.0|^9.5.10|^10.5"
+    "scripts": {
+        "test": "phpunit",
+        "lint": "pint --test",
+        "lint:fix": "pint",
+        "stan": "phpstan analyse",
+        "check": [
+            "@lint",
+            "@stan",
+            "@test"
+        ]
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "8.0.x-dev",
-            "dev-seven": "7.0.x-dev",
-            "dev-five_eight": "5.8.x-dev",
-            "dev-five_seven": "5.7.x-dev",
-            "dev-five_six": "5.6.x-dev",
-            "dev-five_five": "5.5.x-dev",
-            "dev-five_four": "5.4.x-dev",
-            "dev-five_three": "5.3.x-dev"
-        }
-    }
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
 }
