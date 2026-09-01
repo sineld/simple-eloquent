@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class BelongsToTest extends TestCase
 {
     /**
@@ -18,12 +20,12 @@ class BelongsToTest extends TestCase
 
         $this->category = Category::create([
             'id' => 15,
-            'name' => 'Test category'
+            'name' => 'Test category',
         ]);
         $this->article = Article::create([
             'id' => 20,
             'title' => 'Test article',
-            'category_id' => $this->category->id
+            'category_id' => $this->category->id,
         ]);
     }
 

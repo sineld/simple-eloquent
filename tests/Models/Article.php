@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Eloquent\Model;
 use Volosyuk\SimpleEloquent\Relations\BelongsTo;
 use Volosyuk\SimpleEloquent\Relations\BelongsToMany;
@@ -16,7 +18,6 @@ use Volosyuk\SimpleEloquent\SimpleEloquent;
  * @property int $category_id
  *
  * * * related * * *
- *
  * @property Category $category
  */
 class Article extends Model

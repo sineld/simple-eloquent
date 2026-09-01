@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Capsule\Manager as DB;
 
 class MorphToManyTest extends TestCase
@@ -8,16 +10,16 @@ class MorphToManyTest extends TestCase
     {
         $firstArticle = Article::create([
             'id' => 15,
-            'title' => 'First test article'
+            'title' => 'First test article',
         ]);
         $secondArticle = Article::create([
             'id' => 16,
-            'title' => 'Second test article'
+            'title' => 'Second test article',
         ]);
         $like = Like::create([
             'id' => 30,
             'like_for_id' => 1,
-            'like_for_type' => 'test'
+            'like_for_type' => 'test',
         ]);
 
         DB::table('likable')->insert([
@@ -25,14 +27,14 @@ class MorphToManyTest extends TestCase
                 'id' => 50,
                 'like_id' => $like->id,
                 'likable_id' => $firstArticle->id,
-                'likable_type' => Article::class
+                'likable_type' => Article::class,
             ],
             [
                 'id' => 51,
                 'like_id' => $like->id,
                 'likable_id' => $secondArticle->id,
-                'likable_type' => Article::class
-            ]
+                'likable_type' => Article::class,
+            ],
         ]);
 
         $likeSimple = Like::with('articles')->firstSimple();
@@ -45,19 +47,19 @@ class MorphToManyTest extends TestCase
     {
         $article = Article::create([
             'id' => 30,
-            'title' => 'First test article'
+            'title' => 'First test article',
         ]);
         $like = Like::create([
             'id' => 60,
             'like_for_id' => 1,
-            'like_for_type' => 'test'
+            'like_for_type' => 'test',
         ]);
 
         DB::table('likable')->insert([
             'id' => 30,
             'like_id' => $like->id,
             'likable_id' => $article->id,
-            'likable_type' => Article::class
+            'likable_type' => Article::class,
         ]);
 
         $this->articlesTitlesAreEqual(
@@ -70,17 +72,17 @@ class MorphToManyTest extends TestCase
     {
         $article = Article::create([
             'id' => 40,
-            'title' => 'First test article'
+            'title' => 'First test article',
         ]);
         $firstLike = Like::create([
             'id' => 30,
             'like_for_id' => 1,
-            'like_for_type' => 'test'
+            'like_for_type' => 'test',
         ]);
         $secondLike = Like::create([
             'id' => 31,
             'like_for_id' => 1,
-            'like_for_type' => 'test'
+            'like_for_type' => 'test',
         ]);
 
         $this->assertCount(0, Article::simple()->with('likes')->first()->likes);
@@ -90,14 +92,14 @@ class MorphToManyTest extends TestCase
                 'id' => 35,
                 'like_id' => $firstLike->id,
                 'likable_id' => $article->id,
-                'likable_type' => Article::class
+                'likable_type' => Article::class,
             ],
             [
                 'id' => 36,
                 'like_id' => $secondLike->id,
                 'likable_id' => $article->id,
-                'likable_type' => Article::class
-            ]
+                'likable_type' => Article::class,
+            ],
         ]);
 
         $articleSimple = Article::simple()->with('likes')->first();
@@ -110,20 +112,20 @@ class MorphToManyTest extends TestCase
     {
         $article = Article::create([
             'id' => 50,
-            'title' => 'First test article'
+            'title' => 'First test article',
         ]);
         $like = Like::create([
             'id' => 30,
             'like_for_id' => 1,
-            'like_for_type' => 'test'
+            'like_for_type' => 'test',
         ]);
         DB::table('likable')->insert([
             [
                 'id' => 80,
                 'like_id' => $like->id,
                 'likable_id' => $article->id,
-                'likable_type' => Article::class
-            ]
+                'likable_type' => Article::class,
+            ],
         ]);
 
         $this->compareLikes(

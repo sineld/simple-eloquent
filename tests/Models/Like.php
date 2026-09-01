@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Volosyuk\SimpleEloquent\Relations\MorphToMany;
@@ -24,7 +26,7 @@ class Like extends Model
     /**
      * That's really stupid exapmle when one like can be related to various articles :)
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany|MorphToMany
+     * @return Illuminate\Database\Eloquent\Relations\MorphToMany|MorphToMany
      */
     public function articles()
     {

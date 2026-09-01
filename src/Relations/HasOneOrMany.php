@@ -1,20 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Volosyuk\SimpleEloquent\Relations;
 
 use Illuminate\Support\Collection;
 use Volosyuk\SimpleEloquent\ModelAccessor;
 
-/**
- * @package Volosyuk\SimpleEloquent
- */
 trait HasOneOrMany
 {
     /**
      * Match the eagerly loaded results to their single parents.
      *
-     * @param  array   $models
-     * @param  Collection  $results
      * @param  string  $relation
      * @return array
      */
@@ -26,8 +23,6 @@ trait HasOneOrMany
     /**
      * Match the eagerly loaded results to their many parents.
      *
-     * @param  array   $models
-     * @param  Collection  $results
      * @param  string  $relation
      * @param  string  $type
      * @return array

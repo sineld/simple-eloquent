@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Volosyuk\SimpleEloquent\Relations\BelongsToMany;
@@ -15,7 +17,6 @@ use Volosyuk\SimpleEloquent\SimpleEloquent;
  * @property string $name
  *
  * * * related * * *
- *
  * @property Article $article
  * @property Comment $comment
  * @property Comment[]|Collection $comments

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Volosyuk\SimpleEloquent\Relations;
 
 use Illuminate\Database\Eloquent\Relations\HasManyThrough as BaseHasManyThrough;
@@ -9,17 +11,14 @@ use Volosyuk\SimpleEloquent\ModelAccessor;
 
 /**
  * Class HasManyThroughWithSimple
- * @package Volosyuk\SimpleEloquent
  */
 class HasManyThrough extends BaseHasManyThrough
 {
-    use Relation, Pivot;
+    use Pivot, Relation;
 
     /**
      * Match the eagerly loaded results to their parents.
      *
-     * @param  array   $models
-     * @param  Collection  $results
      * @param  string  $relation
      * @return array|stdClass[]
      */
@@ -48,7 +47,6 @@ class HasManyThrough extends BaseHasManyThrough
     /**
      * Set the constraints for an eager load of the relation.
      *
-     * @param  array  $models
      * @return void
      */
     public function addEagerConstraintsSimple(array $models)

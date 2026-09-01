@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class HasManyTest extends TestCase
 {
     /**
@@ -13,7 +15,7 @@ class HasManyTest extends TestCase
 
         $this->category = Category::create([
             'id' => 20,
-            'name' => 'Test category'
+            'name' => 'Test category',
         ]);
     }
 
@@ -24,7 +26,7 @@ class HasManyTest extends TestCase
         Article::create([
             'id' => 50,
             'title' => 'Test article',
-            'category_id' => $this->category->id
+            'category_id' => $this->category->id,
         ]);
 
         $this->articlesTitlesAreEqual(
@@ -38,7 +40,7 @@ class HasManyTest extends TestCase
         $article = Article::create([
             'id' => 50,
             'title' => 'Test article',
-            'category_id' => $this->category->id
+            'category_id' => $this->category->id,
         ]);
 
         $this->articlesTitlesAreEqual(

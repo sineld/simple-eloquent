@@ -1,21 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Volosyuk\SimpleEloquent\Relations;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany as BaseBelongsToMany;
 
 /**
  * Class BelongsToManyWithSimple
- * @package Volosyuk\SimpleEloquent
  */
 class BelongsToMany extends BaseBelongsToMany
 {
-    use Relation, Pivot;
+    use Pivot, Relation;
 
     /**
      * Set the constraints for an eager load of the relation.
      *
-     * @param  array  $models
      * @return void
      */
     public function addEagerConstraintsSimple(array $models)

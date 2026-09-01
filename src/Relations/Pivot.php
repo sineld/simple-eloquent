@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Volosyuk\SimpleEloquent\Relations;
 
 use Exception;
@@ -12,8 +14,6 @@ use stdClass;
 use Volosyuk\SimpleEloquent\ModelAccessor;
 
 /**
- * @package Volosyuk\SimpleEloquent
- *
  * @property Builder|\Volosyuk\SimpleEloquent\Builder $query
  * @property Model $related
  * @property Model $parent
@@ -23,8 +23,6 @@ trait Pivot
     /**
      * Match the eagerly loaded results to their parents.
      *
-     * @param  array   $models
-     * @param  Collection  $results
      * @param  string  $relation
      * @return array
      */
@@ -57,8 +55,7 @@ trait Pivot
     /**
      * Execute the query as a "select" statement.
      *
-     * @param array $columns
-     *
+     * @param  array  $columns
      * @return Collection
      *
      * @throws Exception
@@ -119,6 +116,7 @@ trait Pivot
     {
         if ($this->isSimple()) {
             $this->query->addSelect($this->shouldSelect($columns));
+
             return tap($this->query->simplePaginate($perPage, $columns, $pageName, $page), function ($paginator) {
                 $items = $paginator->items();
 
@@ -129,12 +127,10 @@ trait Pivot
         return parent::simplePaginate($perPage, $columns, $pageName, $page);
     }
 
-
     /**
      * Chunk the results of the query.
      *
      * @param  int  $count
-     * @param  callable  $callback
      * @return bool
      */
     public function chunk($count, callable $callback)
@@ -156,8 +152,7 @@ trait Pivot
     }
 
     /**
-     * @param array $columns
-     *
+     * @param  array  $columns
      * @return Collection
      *
      * @throws Exception
@@ -174,7 +169,6 @@ trait Pivot
     /**
      * Hydrate the pivot table relationship on the models.
      *
-     * @param array $models
      *
      * @return void
      *
@@ -193,8 +187,7 @@ trait Pivot
     /**
      * Get the pivot attributes from a model.
      *
-     * @param  stdClass|array $model
-     *
+     * @param  stdClass|array  $model
      * @return array
      *
      * @throws Exception

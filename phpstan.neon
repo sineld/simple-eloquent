@@ -1,0 +1,23 @@
+# Level 6+ demands full generics/iterable annotations across code that mirrors
+# Eloquent's own loosely-typed internals; level 5 catches the real defects.
+#
+# The ignores below are structural, not suppressed bugs: simple() switches the
+# query to a custom Builder at runtime, so calls like getSimple() resolve via
+# magic forwarding that static analysis cannot see, and Relation/HasRelationships
+# are traits consumed by the host application, which PHPStan skips by design.
+parameters:
+    level: 5
+    paths:
+        - src
+    ignoreErrors:
+        -
+            identifier: trait.unused
+        -
+            message: '#Call to an undefined method .*::(getSimple|getSimpleModels|eagerLoadRelationsSimple)\(\)#'
+        -
+            message: '#unknown class Volosyuk\\SimpleEloquent\\Relations\\Relation#'
+        -
+            message: '#@var for variable \$relation has invalid type Volosyuk\\SimpleEloquent\\Relations\\Relation#'
+        -
+            message: '#MorphTo<.*>::\$models .* does not accept array#'
+            path: src/Relations/MorphTo.php

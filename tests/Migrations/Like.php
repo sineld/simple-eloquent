@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Migrations;
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Capsule\Manager as DB;
+use Illuminate\Database\Schema\Blueprint;
 
 class Like
 {

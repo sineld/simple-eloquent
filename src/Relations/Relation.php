@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Volosyuk\SimpleEloquent\Relations;
 
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +12,6 @@ use Volosyuk\SimpleEloquent\ModelAccessor;
 
 /**
  * Trait SimpleRelation
- * @package Volosyuk\SimpleEloquent
  *
  * @property Builder $query
  * @property Model $parent
@@ -18,8 +19,6 @@ use Volosyuk\SimpleEloquent\ModelAccessor;
 trait Relation
 {
     /**
-     * @param $models
-     * @param $name
      * @return array
      */
     public function eagerLoadAndMatchSimple($models, $name)
@@ -30,8 +29,6 @@ trait Relation
     }
 
     /**
-     * @param array $models
-     * @param $relation
      * @return array|stdClass[]
      */
     public function initSimpleRelation(array &$models, $relation)
@@ -57,7 +54,6 @@ trait Relation
     /**
      * Get all of the primary keys for an array of models.
      *
-     * @param  array   $models
      * @param  string  $key
      * @return array
      */
@@ -71,7 +67,6 @@ trait Relation
     /**
      * Set the constraints for an eager load of the relation.
      *
-     * @param  array  $models
      * @return void
      */
     public function addEagerConstraintsSimple(array $models)

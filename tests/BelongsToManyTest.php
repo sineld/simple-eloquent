@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
 
 use Illuminate\Support\Collection;
 
 class BelongsToManyTest extends TestCase
 {
     private $article;
+
     private $category;
 
     protected function setUp(): void
@@ -14,15 +16,14 @@ class BelongsToManyTest extends TestCase
 
         $this->article = Article::create([
             'id' => 5,
-            'title' => 'Test title'
+            'title' => 'Test title',
         ]);
 
         $this->category = Category::create([
             'id' => 10,
-            'name' => 'Test article'
+            'name' => 'Test article',
         ]);
     }
-
 
     public function test_belongs_to_many_relation_should_return_related_models()
     {

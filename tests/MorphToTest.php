@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class MorphToTest extends TestCase
 {
     /**
@@ -18,12 +20,12 @@ class MorphToTest extends TestCase
 
         $this->article = Article::create([
             'id' => 50,
-            'title' => 'Test article'
+            'title' => 'Test article',
         ]);
-        $this->like= Like::create([
+        $this->like = Like::create([
             'id' => 30,
             'like_for_id' => $this->article->id,
-            'like_for_type' => Article::class
+            'like_for_type' => Article::class,
         ]);
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class HasManyThroughTest extends TestCase
 {
     /**
@@ -18,12 +20,12 @@ class HasManyThroughTest extends TestCase
 
         $this->category = Category::create([
             'id' => 20,
-            'name' => 'Test category'
+            'name' => 'Test category',
         ]);
         $this->article = Article::create([
             'id' => 50,
             'title' => 'Test article',
-            'category_id' => $this->category->id
+            'category_id' => $this->category->id,
         ]);
     }
 
@@ -35,12 +37,12 @@ class HasManyThroughTest extends TestCase
             [
                 'id' => 99,
                 'body' => 'first comment',
-                'article_id' => $this->article->id
+                'article_id' => $this->article->id,
             ],
             [
                 'id' => 100,
                 'body' => 'second comment',
-                'article_id' => $this->article->id
+                'article_id' => $this->article->id,
             ],
         ]);
 
@@ -58,7 +60,7 @@ class HasManyThroughTest extends TestCase
         $comment = Comment::create([
             'id' => 100,
             'body' => 'first comment',
-            'article_id' => $this->article->id
+            'article_id' => $this->article->id,
         ]);
 
         $this->checkCommentsBodies(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Volosyuk\SimpleEloquent\Relations;
 
 use Illuminate\Database\Eloquent\Relations\HasMany as BaseHasMany;
@@ -9,16 +11,12 @@ use Volosyuk\SimpleEloquent\ModelAccessor;
 
 /**
  * Class HasManyWithSimple
- * @package Volosyuk\SimpleEloquent
  */
 class HasMany extends BaseHasMany
 {
     use Relation;
 
     /**
-     * @param array $models
-     * @param Collection $results
-     * @param $relation
      * @return array|stdClass[]
      */
     protected function matchSimple(array &$models, Collection $results, $relation)

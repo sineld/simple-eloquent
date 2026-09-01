@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Volosyuk\SimpleEloquent;
 
 use Exception;
@@ -9,15 +11,9 @@ use stdClass;
  * Perform simple operations with models depends on their type
  *
  * Class ModelAccessor
- * @package Volosyuk\SimpleEloquent
  */
 class ModelAccessor
 {
-    /**
-     * @param $model
-     * @param $attribute
-     * @param $value
-     */
     public static function set(&$model, $attribute, $value)
     {
         if (is_array($model)) {
@@ -28,8 +24,6 @@ class ModelAccessor
     }
 
     /**
-     * @param $model
-     * @param $attribute
      * @return mixed|null
      */
     public static function get($model, $attribute)
@@ -43,10 +37,6 @@ class ModelAccessor
         return null;
     }
 
-    /**
-     * @param $model
-     * @param $attribute
-     */
     public static function delete(&$model, $attribute)
     {
         if (is_array($model)) {
@@ -57,8 +47,6 @@ class ModelAccessor
     }
 
     /**
-     * @param $model
-     * @param $attribute
      * @return bool
      */
     public static function exists($model, $attribute)
@@ -73,8 +61,8 @@ class ModelAccessor
     }
 
     /**
-     * @param $model
      * @return array|stdClass
+     *
      * @throws Exception
      */
     public static function createBasedOnModel($model)
@@ -89,7 +77,7 @@ class ModelAccessor
     }
 
     /**
-     * @param bool $buildArray
+     * @param  bool  $buildArray
      * @return array|stdClass
      */
     private static function create($buildArray = true)

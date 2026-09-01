@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Capsule\Manager as DB;
 
 class MorphManyTest extends TestCase
@@ -15,7 +17,7 @@ class MorphManyTest extends TestCase
 
         $this->article = Article::create([
             'id' => 50,
-            'title' => 'First test article'
+            'title' => 'First test article',
         ]);
     }
 
@@ -28,13 +30,13 @@ class MorphManyTest extends TestCase
                 'id' => 40,
                 'likable_id' => $this->article->id,
                 'likable_type' => Article::class,
-                'like_id' => 222
+                'like_id' => 222,
             ],
             [
                 'id' => 41,
                 'likable_id' => $this->article->id,
                 'likable_type' => Article::class,
-                'like_id' => 222
+                'like_id' => 222,
             ],
         ]);
 
@@ -55,7 +57,7 @@ class MorphManyTest extends TestCase
             'id' => 13,
             'likable_id' => $this->article->id,
             'likable_type' => Article::class,
-            'like_id' => 222
+            'like_id' => 222,
         ]);
 
         $this->compareLikables(

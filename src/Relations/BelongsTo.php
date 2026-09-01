@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Volosyuk\SimpleEloquent\Relations;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo as BaseBelongsTo;
@@ -8,7 +10,6 @@ use Volosyuk\SimpleEloquent\ModelAccessor;
 
 /**
  * Class BelongsToWithSimple
- * @package Volosyuk\SimpleEloquent
  */
 class BelongsTo extends BaseBelongsTo
 {
@@ -17,8 +18,6 @@ class BelongsTo extends BaseBelongsTo
     /**
      * Match the eagerly loaded results to their parents.
      *
-     * @param  array   $models
-     * @param  Collection  $results
      * @param  string  $relation
      * @return array
      */
@@ -47,7 +46,6 @@ class BelongsTo extends BaseBelongsTo
     /**
      * Set the constraints for an eager load of the relation.
      *
-     * @param  array  $models
      * @return void
      */
     public function addEagerConstraintsSimple(array $models)
@@ -60,7 +58,6 @@ class BelongsTo extends BaseBelongsTo
     /**
      * Gather the keys from an array of related models.
      *
-     * @param  array  $models
      * @return array
      */
     protected function getEagerModelKeysSimple(array $models)

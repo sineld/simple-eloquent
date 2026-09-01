@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Migrations;
 
 use Illuminate\Database\Capsule\Manager as DB;

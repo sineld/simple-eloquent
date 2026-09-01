@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Volosyuk\SimpleEloquent\Relations;
 
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +12,6 @@ use Volosyuk\SimpleEloquent\ModelAccessor;
 
 /**
  * Class MorphToWithSimple
- * @package Volosyuk\SimpleEloquent
  */
 class MorphTo extends BaseMorphTo
 {
@@ -33,8 +34,6 @@ class MorphTo extends BaseMorphTo
     }
 
     /**
-     * @param $models
-     * @param $name
      * @return mixed
      */
     public function eagerLoadAndMatchSimple($models, $name)
@@ -73,7 +72,6 @@ class MorphTo extends BaseMorphTo
      * Match the results for a given type to their parents.
      *
      * @param  string  $type
-     * @param  Collection  $results
      * @return void
      */
     protected function matchSimpleToMorphParents($type, Collection $results)
@@ -81,9 +79,13 @@ class MorphTo extends BaseMorphTo
         foreach ($results as $result) {
             foreach ($this->models as &$model) {
                 if (
-                    ModelAccessor::get($model, $this->morphType) == $type
+                    ModelAccessor::get($model, $this->morphType) === $type
                     &&
-                    ModelAccessor::get($model, $this->foreignKey) == ModelAccessor::get($result, $this->parent->getKeyName())
+                    /*
+                     * Key columns can surface as int or string depending on the
+                     * PDO driver, so compare them as strings like Eloquent does.
+                     */
+                    (string) ModelAccessor::get($model, $this->foreignKey) === (string) ModelAccessor::get($result, $this->parent->getKeyName())
                 ) {
                     ModelAccessor::set($model, $this->relationName, $result);
                 }
@@ -92,11 +94,9 @@ class MorphTo extends BaseMorphTo
         }
     }
 
-
     /**
      * Set the constraints for an eager load of the relation.
      *
-     * @param  array  $models
      * @return void
      */
     public function addEagerConstraintsSimple(array $models)
@@ -104,11 +104,9 @@ class MorphTo extends BaseMorphTo
         $this->buildDictionarySimple($this->models = $models);
     }
 
-
     /**
      * Build a dictionary with the models.
      *
-     * @param  array  $models
      * @return void
      */
     protected function buildDictionarySimple(array $models)

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
@@ -9,7 +11,7 @@ use Illuminate\Support\Collection;
 class SelectTest extends TestCase
 {
     /**
-     * @var \Migrations\Article
+     * @var Migrations\Article
      */
     private $article;
 
@@ -19,7 +21,7 @@ class SelectTest extends TestCase
 
         $this->article = Article::create([
             'id' => 50,
-            'title' => 'Test title'
+            'title' => 'Test title',
         ]);
     }
 
@@ -99,7 +101,7 @@ class SelectTest extends TestCase
         $this->articlesTitlesAreEqual($article, $primitiveArticle);
     }
 
-    public function test_belongs_to_many_has_isSimple_method()
+    public function test_belongs_to_many_has_is_simple_method()
     {
         $user = User::create();
 

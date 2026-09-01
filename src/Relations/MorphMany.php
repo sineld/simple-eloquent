@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Volosyuk\SimpleEloquent\Relations;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany as BaseMorphMany;
@@ -8,7 +10,6 @@ use Volosyuk\SimpleEloquent\ModelAccessor;
 
 /**
  * Class MorphManyWIthSimple
- * @package Volosyuk\SimpleEloquent
  */
 class MorphMany extends BaseMorphMany
 {
@@ -17,8 +18,6 @@ class MorphMany extends BaseMorphMany
     /**
      * Match the eagerly loaded results to their parents.
      *
-     * @param  array   $models
-     * @param  Collection  $results
      * @param  string  $relation
      * @return array
      */
@@ -30,8 +29,6 @@ class MorphMany extends BaseMorphMany
     /**
      * Match the eagerly loaded results to their many parents.
      *
-     * @param  array   $models
-     * @param  Collection  $results
      * @param  string  $relation
      * @param  string  $type
      * @return array

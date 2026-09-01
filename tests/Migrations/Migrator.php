@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Migrations;
 
 /**
@@ -17,7 +19,7 @@ class Migrator
         Comment::class,
         Like::class,
         Likable::class,
-        User::class
+        User::class,
     ];
 
     /**
