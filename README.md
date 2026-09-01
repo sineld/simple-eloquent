@@ -7,7 +7,8 @@
 
 Hydration-free Eloquent queries. Add `simple()` to a query chain and results come back
 as plain `stdClass` objects instead of hydrated models — with full relation and
-pagination support — cutting query time and memory roughly in half on read-heavy pages.
+pagination support. On read-heavy queries that is [4–12x faster with up to 2.5x less
+memory](#real-world-scenarios), measured, not estimated.
 
 > **Fork notice.** This is an actively maintained fork of
 > [volosyuk/simple-eloquent](https://github.com/andreyvolosyuk/simple-eloquent) by
@@ -23,13 +24,51 @@ dashboards, exports, API listings. `simple()` skips model instantiation, casts,
 accessors and events, returning raw attributes with relations attached. Keep using
 plain Eloquent whenever you need mutators, casting, or to call methods on the model.
 
-Numbers from the original author's benchmarks:
+## Real-world scenarios
 
-| Query | `get()` | `simple()->get()` |
-| :--- | ---: | ---: |
-| 50 users, 3 nested relation trees | 0.62s / 6.0mb | 0.19s / 3.0mb |
-| 20 models, 5-level relation | 1.48s / 28.5mb | 0.47s / 15.5mb |
-| 1000 models, 2 relations | 0.22s / 2.0mb | 0.06s / 1.1mb |
+Every listing screen in a typical app is a hydration hotspot. The same query, one
+`simple()` call apart:
+
+**The admin index table** — 50 rows, a relation, pagination. The bread and butter
+of every back office:
+
+```php
+// 0.7 ms → 0.2 ms, 4x faster
+$articles = Article::with('category')->simple()->paginate(50);
+```
+
+**The JSON API endpoint** — a mobile app asks for 1,000 records; nobody will ever
+call `save()` on them:
+
+```php
+// 8.3 ms → 0.9 ms, 9x faster, 2.5x less memory
+return Article::with('category')->limit(1000)->simple()->get();
+```
+
+**The CSV/Excel export** — 10,000 rows streamed to a file. Hydrating models here
+buys you nothing but a memory spike:
+
+```php
+// 82 ms → 8 ms, 10x faster, 15 MB → 6 MB
+$rows = Article::with('category')->simple()->get();
+```
+
+**The dashboard widget** — categories with their articles via `hasMany`, rebuilt
+on every page view:
+
+```php
+// 66 ms → 5 ms, 12x faster, half the memory
+$feed = Category::with('articles')->simple()->get();
+```
+
+Measured on PHP 8.4 with an in-memory SQLite database (10,000 articles, 20
+categories), median of 5 runs — so the numbers isolate exactly what this package
+removes: hydration cost. Your absolute totals will include real query time on top,
+but the saved milliseconds and megabytes come with you. Reproduce them yourself:
+
+```bash
+composer install && php benchmarks/bench.php
+```
 
 ## Requirements
 
