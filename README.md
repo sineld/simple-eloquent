@@ -33,7 +33,7 @@ Numbers from the original author's benchmarks:
 
 ## Requirements
 
-- PHP 8.2+
+- PHP 8.2 – 8.5 (the upcoming PHP release is covered by a nightly CI job)
 - Laravel 12 or 13 (constraints already allow 14 — it installs the day it ships)
 
 ## Installation
@@ -105,9 +105,9 @@ composer stan    # PHPStan level 5
 composer check   # all of the above
 ```
 
-CI runs the suite on PHP 8.2–8.4 against every supported Laravel release, plus a
-weekly run against `laravel/framework@master` to catch next-major breakage months
-before it lands.
+CI runs the suite on PHP 8.2–8.5 against every supported Laravel release, plus a
+weekly run against `laravel/framework@master` and PHP nightly to catch next-major
+breakage months before it lands.
 
 ## Credits
 

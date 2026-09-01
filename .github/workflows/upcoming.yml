@@ -1,6 +1,7 @@
-# Early warning for the next Laravel major: runs the suite against the
-# framework's master branch weekly so breakage is caught months before release.
-name: upcoming-laravel
+# Early warning for what is coming next: the suite runs weekly against the
+# framework's master branch and against the unreleased PHP nightly, so breakage
+# is caught months before either ships.
+name: upcoming
 
 on:
   schedule:
@@ -8,14 +9,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  upcoming-laravel:
     runs-on: ubuntu-latest
     name: Laravel dev-master
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: '8.5'
           coverage: none
       - run: >
           composer require
@@ -25,4 +26,16 @@ jobs:
           --no-interaction --no-update
       - run: composer config minimum-stability dev
       - run: composer update --prefer-dist --no-interaction --no-progress --with-all-dependencies
+      - run: composer test
+
+  upcoming-php:
+    runs-on: ubuntu-latest
+    name: PHP nightly
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: 'nightly'
+          coverage: none
+      - run: composer update --prefer-dist --no-interaction --no-progress --ignore-platform-req=php+
       - run: composer test
