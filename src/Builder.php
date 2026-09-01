@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Volosyuk\SimpleEloquent;
 
 use Closure;
@@ -18,7 +20,6 @@ use Volosyuk\SimpleEloquent\Relations\Relation;
 
 /**
  * Class Builder
- * @package Volosyuk\SimpleEloquent
  */
 class Builder extends \Illuminate\Database\Eloquent\Builder
 {
@@ -46,7 +47,7 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     }
 
     /**
-     * @param array $columns
+     * @param  array  $columns
      * @return EloquentCollection|Collection|static[]
      */
     public function get($columns = ['*'])
@@ -59,8 +60,8 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     }
 
     /**
-     * @param mixed $id
-     * @param array $columns
+     * @param  mixed  $id
+     * @param  array  $columns
      * @return Collection|stdClass|array|null
      */
     public function find($id, $columns = ['*'])
@@ -73,8 +74,8 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     }
 
     /**
-     * @param mixed $id
-     * @param array $columns
+     * @param  mixed  $id
+     * @param  array  $columns
      * @return array|EloquentCollection|Model|Collection|stdClass
      */
     public function findOrFail($id, $columns = ['*'])
@@ -87,7 +88,7 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     }
 
     /**
-     * @param array $columns
+     * @param  array  $columns
      * @return array|Model|null|object|stdClass|static
      */
     public function first($columns = ['*'])
@@ -100,7 +101,7 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     }
 
     /**
-     * @param array $columns
+     * @param  array  $columns
      * @return array|Model|stdClass|static
      */
     public function firstOrFail($columns = ['*'])
@@ -113,8 +114,8 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     }
 
     /**
-     * @param array|Arrayable $ids
-     * @param array $columns
+     * @param  array|Arrayable  $ids
+     * @param  array  $columns
      * @return EloquentCollection|Collection
      */
     public function findMany($ids, $columns = ['*'])
@@ -127,10 +128,10 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     }
 
     /**
-     * @param null $perPage
-     * @param array $columns
-     * @param string $pageName
-     * @param null $page
+     * @param  null  $perPage
+     * @param  array  $columns
+     * @param  string  $pageName
+     * @param  null  $page
      * @return LengthAwarePaginatorInterface
      */
     public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null, $total = null)
@@ -143,10 +144,10 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     }
 
     /**
-     * @param null $perPage
-     * @param array $columns
-     * @param string $pageName
-     * @param null $page
+     * @param  null  $perPage
+     * @param  array  $columns
+     * @param  string  $pageName
+     * @param  null  $page
      * @return PaginatorInterface
      */
     public function simplePaginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
@@ -159,7 +160,7 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     }
 
     /**
-     * @param array $columns
+     * @param  array  $columns
      * @return Collection
      */
     public function getSimple($columns = ['*'])
@@ -176,8 +177,8 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     }
 
     /**
-     * @param mixed $id
-     * @param array $columns
+     * @param  mixed  $id
+     * @param  array  $columns
      * @return Collection|stdClass|array|null
      */
     public function findSimple($id, $columns = ['*'])
@@ -205,7 +206,7 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
         $result = $this->findSimple($id, $columns);
 
         if (is_array($id)) {
-            if (count($result) == count(array_unique($id))) {
+            if (count($result) === count(array_unique($id))) {
                 return $result;
             }
         } elseif (! is_null($result)) {
@@ -299,15 +300,17 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
      *
      * This is more efficient on larger data-sets, etc.
      *
-     * @param  int  $perPage
+     * @param  int|null  $perPage
      * @param  array  $columns
      * @param  string  $pageName
      * @param  int|null  $page
      * @return PaginatorInterface
      */
-    public function simplePaginateSimple($perPage = 15, $columns = ['*'], $pageName = 'page', $page = null)
+    public function simplePaginateSimple($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
     {
         $page = $page ?: Paginator::resolveCurrentPage($pageName);
+
+        $perPage = $perPage ?: $this->model->getPerPage();
 
         $this->skip(($page - 1) * $perPage)->take($perPage + 1);
 
@@ -331,9 +334,7 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     /**
      * Eagerly load the relationship on a set of models.
      *
-     * @param  array  $models
      * @param  string  $name
-     * @param Closure $constraints
      * @return array
      */
     protected function loadSimpleRelation(array $models, $name, Closure $constraints)
@@ -355,7 +356,6 @@ class Builder extends \Illuminate\Database\Eloquent\Builder
     /**
      * Eager load the relationships for the models.
      *
-     * @param  array  $models
      * @return array
      */
     public function eagerLoadRelationsSimple(array $models)
